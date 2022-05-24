@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+// 22.05.24
+/*
 function App() {
   const [counter, setValue] = useState(0);
   const [keyword, setKeyword] = useState("");
@@ -8,10 +10,11 @@ function App() {
   console.log("I run all the time.");
 
   // useEffect(iRunOnlyOnce, []);
-  // useEffect()함수는 코드가 딱 한번만 실행될 수 있도록 보호해준다.
+  // useEffect()함수는 코드가 딱 한번만 실행될 수 있도록 보호해준다. react.js가 동작하는 관점에서 본다면 일종의 방어막 같은 것.
+  // useEffect를 통해 언제 코드를 실행할지 선택권을 가질 수 있다.
   useEffect( () => {
     console.log("The code runs here only once.");
-  }, []);  // 배열 상태 부분이 인자값이 아무것도 없게되면 그저 한번만 실행하게 된다.
+  }, []);  // 배열 상태 부분이 뜻하는 것은 dependency이며 그 안에 인자값이 아무것도 없게되면 그저 한번만 실행하게 된다.
   useEffect( () => {
     console.log("The code now runs when 'keyword' changes.")
     // if(keyword !== "" && keyword.length > 5) {
@@ -33,10 +36,31 @@ function App() {
       <button onClick={onClick}>Click me!</button>
     </div>
   );
-  /* import Button from "./Button"; */
-  /* import styles from "./App.module.css"; */
-  /* <h1 className={styles.title}>Welcome back!!!</h1> */
-  /* <Button onClick={onCLick} text={"Continue"} /> */
+  // import Button from "./Button";
+  // import styles from "./App.module.css";
+  // <h1 className={styles.title}>Welcome back!!!</h1>
+  // <Button onClick={onCLick} text={"Continue"} />
+}
+*/
+
+// CleanUp()함수 => 그냥 일반적인 함수인데, component가 없어질때 코드 수행을 할 수 있도록 해준다. 예) 없어질 때 어떤 분석결과를 받고자 할때, event listener를 지우거나 console을 뿌려주기 등등 
+function Hello() {
+  useEffect( () => {
+    console.log("created :)")
+    return () => console.log("destroyed :(")
+  }, []) 
+  return <h1>Hello</h1>
 }
 
+function App() {
+  const [showing, setShowing] = useState(false);
+  const onClick = () => setShowing( (prev) => !prev )
+
+  return (
+    <div>
+      {showing ? <Hello /> : null}
+      <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
+    </div>
+  );
+}
 export default App;

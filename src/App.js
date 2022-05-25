@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 //import { useState, useEffect } from "react";
 // 22.05.24
@@ -70,6 +70,7 @@ function App() {
 
 // 22.05.25
 // ToDo list 만들기
+/*
 function App() {
   const [toDo, setToDo] = useState("")
   const [toDos, setToDos] = useState([])
@@ -109,7 +110,49 @@ function App() {
     </div>
   );
 }
+*/
+
+// Coin Tracker 암호화폐 리스트 만들기
+function App() {
+  const [loading, setLoading] = useState(true)
+  const [coins, setCoins] = useState([])
+  useEffect( () => {
+    fetch("https://api.coinpaprika.com/v1/tickers")
+    .then( response => response.json() )
+    .then( (json) => {
+      setCoins(json);  // json, 즉 coins를 얻었을 때, json의 값을 setCoins에 담게한다.
+      setLoading(false);  // 하지만 이와 동시에 coins 얻기를 끝냈다면, loading을 false로 바꿔줘야한다. 
+    })
+  }, [])
+  
+  // const [coins, setCoins] = useState([])을 통해 처음에 기본값으로 비어있는 []배열을 넘겨주기 때문에 coin이 처음에는 0개가 된다.
+  return (
+    <div>
+      <h1>The Coins! { loading ? "" : `(now there are ${coins.length.toLocaleString()} coins)` }</h1>
+      {loading ? (
+        <strong>Loading...</strong>
+        ) : (
+        <select>
+          {coins.map( (coins) => (
+            <option>
+              {coins.name} ({coins.symbol}): ({coins.quotes.USD.price} USD )
+            </option>
+          ))}
+        </select>
+        ) }
+    </div>
+  );
+}
+/*
+<ul>
+  {coins.map( (coins) => (
+    <li>
+      {coins.name} ({coins.symbol}): ({coins.quotes.USD.price} USD )
+    </li>
+  ))}
+</ul>
+*/
 
 
-
+//api.coinpaprika.com/v1/tickers
 export default App;

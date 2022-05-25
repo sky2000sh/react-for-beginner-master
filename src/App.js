@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
+//import { useState, useEffect } from "react";
 // 22.05.24
 /*
 function App() {
@@ -44,6 +45,8 @@ function App() {
 */
 
 // CleanUp()함수 => 그냥 일반적인 함수인데, component가 없어질때 코드 수행을 할 수 있도록 해준다. 예) 없어질 때 어떤 분석결과를 받고자 할때, event listener를 지우거나 console을 뿌려주기 등등 
+// 22.05.24
+/*
 function Hello() {
   useEffect( () => {
     console.log("created :)")
@@ -63,4 +66,41 @@ function App() {
     </div>
   );
 }
+*/
+
+// 22.05.25
+// ToDo list 만들기
+function App() {
+  const [toDo, setToDo] = useState("")
+  const [toDos, setToDos] = useState([])
+  const onChange = (event) => setToDo(event.target.value)
+  const onSubmit = (event) => {
+    event.preventDefault();    
+    if(toDo === "") {
+      return;
+    }
+    
+    // ...의 의미는 현 currentArray 배열에
+    // toDo input 글씨들이 엔터로써 넘어가게 된다면(onSubmit)
+    // 그 글씨들이 아무것도 들어있지 않은 빈 Array의 element로 더해진다는 의미
+    setToDos((currentArray) => [toDo, ...currentArray] )  
+    setToDo("")
+  }
+  console.log("toDos : ", toDos)
+  
+
+  return (
+    <div>
+      <h1>My ToDos ({toDos.length})</h1>
+      <form onSubmit={onSubmit}>
+        <input onChange={onChange} value={toDo} type="text" placeholder="Write your to do..." />
+        <button>Add To Do</button>
+      </form>
+      
+    </div>
+  );
+}
+
+
+
 export default App;

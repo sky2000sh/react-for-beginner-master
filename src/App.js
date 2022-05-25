@@ -96,7 +96,16 @@ function App() {
         <input onChange={onChange} value={toDo} type="text" placeholder="Write your to do..." />
         <button>Add To Do</button>
       </form>
-      
+      <hr/>
+        <ul>
+          {toDos.map( (item, index) => (
+            <li key={index}>{item}</li>
+            // key는 고유의 값(unique)이어야 한다.
+            // map 함수에 대한 문서를 찾아보면 첫번째 argument는 value여야하고, 이 value는 각각의 toDo들을 의미한다.
+            // 두번째 argument는 index이며, 현재 index는 number로 되어있다.
+            // 즉, 한 개씩 더해질때마다 index의 숫자는 1,2,3,4로 채워지면서 toDo 들이 배열에 담아지게 된다.
+          ) )}
+        </ul>
     </div>
   );
 }

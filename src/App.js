@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+//import { useEffect, useState } from "react";
+//import Movie from "./components/Movie";
 
 //import { useState, useEffect } from "react";
 // 22.05.24
@@ -157,6 +158,7 @@ function App() {
 */
 
 // 22.05.26
+/*
 function App() {
   const [loading, setLoading] = useState(true)
   const [movies, setMovies] = useState([])  // useState([])을 통해 처음에 기본값으로 비어있는 []배열을 넘겨주기 때문에 coin이 처음에는 0개가 된다.
@@ -193,28 +195,53 @@ function App() {
 
   console.log('movies? : ', movies)
   return (
-    <div>
-      
+    <div>      
       {loading ? (
         <strong>Loading...</strong>
         ) : (
         <div>{movies.map( (movie) => (
-          <div key={movie.id}>
-            <hr></hr>
-            <img src={movie.medium_cover_image}></img>
-            <h2>{movie.title}</h2>
-            <p>{movie.summary}</p>
-            <ul>
-              {movie.genres.map( (g) => (
-                <li key={g}>{g}</li>
-              ))}
-            </ul>
-            </div>
+          <Movie
+            key={movie.id}  // key는 React.js에서만, 특히 map안에서 component들을 rendering할 때 사용한다.
+            coverImg={movie.medium_cover_image}
+            title={movie.title}
+            summary={movie.summary}
+            genres={movie.genres} />
           ))}
         </div>
         ) }
     </div>
   );
+
+  
+  // return (
+  //   <div>      
+  //     {loading ? (
+  //       <strong>Loading...</strong>
+  //       ) : (
+  //       <div>{movies.map( (movie) => (
+  //         <div key={movie.id}>
+  //           <hr></hr>
+  //           <img src={movie.medium_cover_image}></img>
+  //           <h2>{movie.title}</h2>
+  //           <p>{movie.summary}</p>
+  //           <ul>
+  //             {movie.genres.map( (g) => (
+  //               <li key={g}>{g}</li>
+  //             ))}
+  //           </ul>
+  //           </div>
+  //         ))}
+  //       </div>
+  //       ) }
+  //   </div>
+  // );
+  
+}
+*/
+
+function App() {
+
+  return null
 }
 
 

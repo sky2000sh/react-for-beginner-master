@@ -112,7 +112,9 @@ function App() {
 }
 */
 
+// 22.05.25
 // Coin Tracker 암호화폐 리스트 만들기
+/*
 function App() {
   const [loading, setLoading] = useState(true)
   const [coins, setCoins] = useState([])
@@ -143,6 +145,7 @@ function App() {
     </div>
   );
 }
+*/
 /*
 <ul>
   {coins.map( (coins) => (
@@ -152,6 +155,67 @@ function App() {
   ))}
 </ul>
 */
+
+// 22.05.26
+function App() {
+  const [loading, setLoading] = useState(true)
+  const [movies, setMovies] = useState([])  // useState([])을 통해 처음에 기본값으로 비어있는 []배열을 넘겨주기 때문에 coin이 처음에는 0개가 된다.
+
+  // 
+  const getMovies = async() => {
+    const response = await fetch("https://yts.mx/api/v2/list_movies.json?minimum_rating=8.5&sort_by=year")
+    const json = await response.json()
+    setMovies(json.data.movies);  // json, 즉 movies 얻었을 때, json의 값을 setMovies 담게한다.
+    setLoading(false);  // 하지만 이와 동시에 movies 얻기를 끝냈다면, loading을 false로 바꿔줘야한다.
+  }
+
+  // 또는 wrapping으로써 아랫 명령어도 가능하다.
+  // const getMovies = async() => {
+  //   const json = await ( await fetch ("https://yts.mx/api/v2/list_movies.json?minimum_rating=8.5&sort_by=year")
+  //                       ).json()
+  //                       setMovies(json.data.movies)
+  //                       setLoading(false)
+  // }
+
+  useEffect( () => {
+    getMovies()
+  }, [])
+
+  // 아래 useEffect()함수 fetch를 나열하는 대신 요즈음에는, 맨 윗 명령어로 한다.
+  // useEffect( () => {
+  //   fetch("https://yts.mx/api/v2/list_movies.json?minimum_rating=8.5&sort_by=year")
+  //   .then( response => response.json() )
+  //   .then( (json) => {
+  //     setMovies(json.data.movies);  // json, 즉 movies 얻었을 때, json의 값을 setMovies 담게한다.
+  //     setLoading(false);  // 하지만 이와 동시에 movies 얻기를 끝냈다면, loading을 false로 바꿔줘야한다.
+  //   })
+  // }, [])
+
+  console.log('movies? : ', movies)
+  return (
+    <div>
+      
+      {loading ? (
+        <strong>Loading...</strong>
+        ) : (
+        <div>{movies.map( (movie) => (
+          <div key={movie.id}>
+            <hr></hr>
+            <img src={movie.medium_cover_image}></img>
+            <h2>{movie.title}</h2>
+            <p>{movie.summary}</p>
+            <ul>
+              {movie.genres.map( (g) => (
+                <li key={g}>{g}</li>
+              ))}
+            </ul>
+            </div>
+          ))}
+        </div>
+        ) }
+    </div>
+  );
+}
 
 
 //api.coinpaprika.com/v1/tickers

@@ -253,10 +253,11 @@ function App() {
   return <Router>
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/movie" element={<Detail />} />
+      <Route path="/movie/:id" element={<Detail />} />
     </Routes>
   </Router>
 }
+// path="/movie/" element={<Detail />} => path="/movie/:id"를 하게되면 "id"라는 이름의 parameter값을 어떤 특정 사이트로 같이 태워 이동할 수 있다.
 
 
 //api.coinpaprika.com/v1/tickers

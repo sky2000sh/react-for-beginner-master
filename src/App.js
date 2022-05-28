@@ -239,9 +239,23 @@ function App() {
 }
 */
 
+import {
+  BrowserRouter as Router,
+  // HashRouter는 일반적인 localhost:3000/home 형태가 아닌 localhost:3000/#/home 형태이다.
+  Routes,
+  Route,
+} from "react-router-dom"
+import Home from "./routes/Home"
+import Detail from "./routes/Detail"
+
 function App() {
 
-  return null
+  return <Router>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/movie" element={<Detail />} />
+    </Routes>
+  </Router>
 }
 
 

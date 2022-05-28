@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import Movie from "../components/Movie";
+import { useEffect, useState } from "react"
+import Movie from "../components/Movie"
+import styles from "./Home.module.css"
 
 function Home() {
 
@@ -20,11 +21,14 @@ function Home() {
 
     console.log('movies? : ', movies)
     return (
-        <div>      
+        <div className={styles.container}>      
         {loading ? (
-            <strong>Loading...</strong>
+            <div className={styles.loader}>
+                <span>Loading...</span>
+            </div>
             ) : (
-            <div>{movies.map( (movie) => (
+            <div className={styles.movies}>
+                {movies.map( (movie) => (
             <Movie
                 key={movie.id}  // key는 React.js에서만, 특히 map안에서 component들을 rendering할 때 사용한다.
                 id={movie.id}
